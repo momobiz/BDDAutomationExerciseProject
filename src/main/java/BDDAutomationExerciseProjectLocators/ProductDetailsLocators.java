@@ -30,6 +30,18 @@ public class ProductDetailsLocators {
 	@FindBy(xpath="//div[@class='product-information']/p[4]")
 	public WebElement productBrand;
 	
+	@CacheLookup
+	@FindBy(xpath="//div[@class='product-information']")
+	public WebElement productDetailsFrame;
+	
+	@CacheLookup
+	@FindBy(id="quantity")
+	public WebElement quantityDynamicDropdown;
+	
+	@CacheLookup
+	@FindBy(xpath="//button[@type='button']")
+	public WebElement addToCartButton;
+	
 	
 
 }

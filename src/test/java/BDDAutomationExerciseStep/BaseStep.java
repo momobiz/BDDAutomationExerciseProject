@@ -12,6 +12,7 @@ import BDDAutomationExercisePage.ContactUsPage;
 import BDDAutomationExercisePage.DeleteAccountInformationPage;
 import BDDAutomationExercisePage.EnterAccountInformationPage;
 import BDDAutomationExercisePage.HomePage;
+import BDDAutomationExercisePage.PaymentDetailsPage;
 import BDDAutomationExercisePage.ProductDetailsPage;
 import BDDAutomationExercisePage.ProductsPage;
 import BDDAutomationExercisePage.SearchedProductsPage;
@@ -34,6 +35,7 @@ public abstract class BaseStep {
 	static SearchedProductsPage searchedProductsPage;
 	static ProductDetailsPage productDetailsPage;
 	static CartPage cartPage;
+	static PaymentDetailsPage paymentDetailsPage;
 
 	
 	

@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 public class AlertCardLocators {
 	
 	@CacheLookup
-	@FindBy(xpath="//u[contains(text(),'View Cart')]")
+	@FindBy(xpath="//div[@class='modal-content']/div[2]/p[2]/a")
 	public WebElement viewCartLink;
 	
 	@CacheLookup

@@ -3,8 +3,10 @@ package BDDAutomationExercisePage;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.poi.util.SystemOutLogger;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import BDDAutomationExerciseProjectLocators.CartPageLocators;
 
@@ -14,6 +16,9 @@ public class CartPage extends BasePage{
 	public Footer footer;
 	public CartPageLocators cartPageLocators;
 	 List<ItemInCartPage> listItemInCartPage;
+    public CartAddressDetailsPage cartAddressDetails=null;
+	 
+	
 	
 	
 	public CartPage() {
@@ -21,8 +26,20 @@ public class CartPage extends BasePage{
 		footer=new Footer();
 		cartPageLocators=new CartPageLocators();
 		PageFactory.initElements(driver, cartPageLocators);
-		listItemInCartPage=new ArrayList<ItemInCartPage>();
+		
+		setListOfItemInCart();
 	}
+	
+	public CartPage(String userConnected) {
+		header=new Header("userConnected");
+		footer=new Footer();
+		cartPageLocators=new CartPageLocators();
+		PageFactory.initElements(driver, cartPageLocators);
+		setListOfItemInCart();
+		
+		cartAddressDetails=new CartAddressDetailsPage();
+	}
+	/******************************************************/
 	
 	public void scrollDownToFooter() {
 		scrollToWebElement(footer.footerLocators.alertSuccessMessage);
@@ -30,7 +47,8 @@ public class CartPage extends BasePage{
 	
 	private void setListOfItemInCart(){
 		ItemInCartPage item;
-		for(WebElement locator:cartPageLocators.listOfItems) {
+		listItemInCartPage=new ArrayList<ItemInCartPage>();
+		for(WebElement locator:cartPageLocators.listOfItemLocators) {
 			item=new ItemInCartPage(locator);
             listItemInCartPage.add(item);
 			
@@ -40,7 +58,6 @@ public class CartPage extends BasePage{
 	}
 	
 	public boolean isProductInCart(String productName) {
-		setListOfItemInCart();
 		boolean state=false;
 		for(ItemInCartPage item:listItemInCartPage) {
 				if(item.getNameOfItem().contains(productName.toLowerCase())) {
@@ -54,7 +71,7 @@ public class CartPage extends BasePage{
 		
 	}
 	private int indexOfProductInCart(String productName) {
-		int index=-1;
+		int index=0;
 		if(isProductInCart(productName)) {
 			for(ItemInCartPage item:listItemInCartPage) {
 				if(item.getNameOfItem().contains(productName.toLowerCase())) {
@@ -69,17 +86,67 @@ public class CartPage extends BasePage{
 	}
 	public String getProductPrice(String productName) {
 		int index=indexOfProductInCart(productName);
-		return listItemInCartPage.get(index).getItemPrice();	
+		return listItemInCartPage.get(index-1).getItemPrice();	
 	}
 	public String getProductQuantity(String productName) {
 		int index=indexOfProductInCart(productName);
-		return listItemInCartPage.get(index).getItemQuanty();	
+		return listItemInCartPage.get(index-1).getItemQuanty();	
 		
 	}
 	public String getTotalPrice(String productName) {
 		int index=indexOfProductInCart(productName);
-		return listItemInCartPage.get(index).getItemTotalPrice();
+		return listItemInCartPage.get(index-1).getItemTotalPrice();
 		
+	}
+	
+	public boolean proceedToCheckoutIsDisplayed() {
+		boolean state=false;
+		try {
+			
+			state=isDisplayed(cartPageLocators.proceedToCheckoutButton);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return state;
+		
+	}
+	
+	
+	
+	public SignupLoginPage clickOnProceedCheckoutButton() {
+//		clickOn(cartPageLocators.proceedToCheckoutButton);
+		clickOnProceedToCheckOut();
+		CheckoutAlertCard checkoutAlertCard=new CheckoutAlertCard();
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			
+			e.printStackTrace();
+		}
+		return checkoutAlertCard.clickOnRegisterLoginButton();
+	}
+	/********      *******/
+	public void clickOnProceedToCheckOut() {
+		clickOn(cartPageLocators.proceedToCheckoutButton);
+	}
+	
+
+	public CartPage whenconnectedclickOnProceedCheckoutButton() {
+		  clickOnProceedToCheckOut();
+		  return new CartPage("userConnected");
+	}
+	
+	public void addDescription(String description) {
+		scrollToWebElement(cartPageLocators.descriptionTextArea);
+		moveToWebElement(cartPageLocators.descriptionTextArea);
+		
+		fillIn(cartPageLocators.descriptionTextArea, description);
+	}
+	public PaymentDetailsPage clickOnplaceOrderButton() {
+		scrollToWebElement(cartPageLocators.placeOrderButton);
+		moveToWebElement(cartPageLocators.placeOrderButton);
+		clickOn(cartPageLocators.placeOrderButton);
+		return new PaymentDetailsPage();
 	}
 	
 	

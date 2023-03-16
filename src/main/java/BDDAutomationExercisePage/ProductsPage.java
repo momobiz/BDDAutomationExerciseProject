@@ -2,12 +2,14 @@ package BDDAutomationExercisePage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.xml.xpath.XPath;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import BDDAutomationExerciseProjectLocators.ProductCardLocators;
 import BDDAutomationExerciseProjectLocators.ProductsPageLocators;
@@ -25,6 +27,8 @@ public class ProductsPage extends BasePage {
 		PageFactory.initElements(driver, productsPageLocators);
 
 		listOfProductCard = setListOfProductCard();
+		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+
 
 	}
 
@@ -41,16 +45,20 @@ public class ProductsPage extends BasePage {
 
 	public ProductCard getProduct(String productNumber) {
 
-		return listOfProductCard.get(Integer.valueOf(productNumber));
+		return listOfProductCard.get(Integer.valueOf(productNumber)-1);
 
 	}
 
 	public ProductDetailsPage getProductDetails(String productNumber) {
 
 		ProductCard product = getProduct(productNumber);
+
+	
 		scrollToWebElement(product.productCardWebElement);
-		product.productCardLocators.viewProductButton.click();
-		return new ProductDetailsPage();
+		
+//		product.productCardLocators.viewProductButton.click();
+//		return new ProductDetailsPage();
+		return product.clickOnViewProductButton();
 
 	}
 
@@ -63,12 +71,23 @@ public class ProductsPage extends BasePage {
 	
 
 	public void hoverOnProductAndClickAddToCart(String numberOfProduct) {
-		ProductCard productCard = listOfProductCard.get(Integer.valueOf(numberOfProduct) - 1);
-		scrollToWebElement(productCard.productCardWebElement);
-		moveToWebElement(productCard.productCardWebElement);
-		alertCard = productCard.clickOnAddProductToCart();
+		
+		ProductCard productCard = listOfProductCard.get(Integer.valueOf(numberOfProduct)-1);
+	    
+		
+			scrollToWebElement(productCard.productCardWebElement);
+			moveToWebElement(productCard.productCardWebElement);
+			alertCard = productCard.clickOnAddProductToCart();
+		
+	   
+//		   scrollToWebElement(productCard.productCardWebElement);
+//			moveToWebElement(productCard.productCardWebElement);
+//			alertCard = productCard.clickOnAddProductToCart();
+		   
+		}
 
-	}
+
+
 
 	public void clickOnAlertCardContinueshoppingButton() {
 		if (alertCard != null) {

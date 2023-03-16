@@ -11,5 +11,9 @@ public class HomePageLocators {
 	@CacheLookup
 	@FindBy(xpath="//a/button[contains(text(),'Test Cases')]")
 	public List<WebElement> testCasesButtons;
+	
+	@CacheLookup
+	@FindBy(xpath="//div[@class='features_items']/child::div[@class='col-sm-4']")
+	public List<WebElement> listOfProductCardLocator;
 
 }

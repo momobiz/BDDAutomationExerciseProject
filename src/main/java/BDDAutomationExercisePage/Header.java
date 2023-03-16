@@ -70,6 +70,10 @@ public class Header extends BasePage{
 		clickOn(headerLocators1.CartLink);
 		return new CartPage();
 	}
+	public CartPage clickOnCartLink(String userConnected) {
+		clickOn(headerLocators1.CartLink);
+		return new CartPage(userConnected);
+	}
 	
 	
 	

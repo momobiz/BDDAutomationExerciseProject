@@ -19,7 +19,12 @@ Feature: Add Products In Cart Feature12
 
   Examples: 
 	      | sheet1  |	sheet4	|	rowNumber | 
-      	| Feuil1 	| Feuil4  | 	 0 	 		| 
       	| Feuil1 	| Feuil4  | 	 1 	 		| 
+      	| Feuil1 	| Feuil4  | 	 0 	 		| 
+     
+      	
+      	
+      	
+      
       	
 

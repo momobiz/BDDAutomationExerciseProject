@@ -1,4 +1,4 @@
-@VerifyAllProductsAndProductDetailPageFeature
+@VerifyAllProductsAndProductDetailPageFeature8
 Feature: All Products and product detail page Feature
 
  
@@ -15,8 +15,8 @@ Feature: All Products and product detail page Feature
  
 
        Examples: 
-      | sheet1  |		sheet4	|rowNumber	| 
-      | Feuil1 	|   Feuil4	|  	0				| 
-      | Feuil1 	|   Feuil4	|  	1				| 
+      | sheet1  |	sheet4	|rowNumber	| 
+      | Feuil1 	|  	Feuil4	|  	0		| 
+      | Feuil1 	|   Feuil4	|  	1		| 
     
     

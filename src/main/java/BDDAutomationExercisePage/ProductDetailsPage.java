@@ -7,11 +7,16 @@ import BDDAutomationExerciseProjectLocators.ProductDetailsLocators;
 public class ProductDetailsPage extends BasePage {
 	Header header;
 	ProductDetailsLocators productDetailsPageLocators;
+	public AlertCard alertCard=null;
 
 	public ProductDetailsPage() {
 		header = new Header();
 		productDetailsPageLocators = new ProductDetailsLocators();
 		PageFactory.initElements(driver, productDetailsPageLocators);
+	}
+	
+	public boolean productDetailsPageIsDeplayed() {
+		return isDisplayed(productDetailsPageLocators.productDetailsFrame);
 	}
 
 	public boolean productNameIsDisplayed() {
@@ -39,5 +44,24 @@ public class ProductDetailsPage extends BasePage {
 	public boolean productBrandIsdisplayed() {
 		return isDisplayed(productDetailsPageLocators.productBrand);
 	}
+	public void increaseQuantity(String quantity) {
+		insertValueInDynamicDropdown(productDetailsPageLocators.quantityDynamicDropdown, quantity);
+		
+	}
+	public void clickOnToAddToCartButton() {
+		productDetailsPageLocators.addToCartButton.click();
+		alertCard= new AlertCard();
+	}
+	public CartPage clickOnViewCartButton() {
+		try {
+			alertCard.clickOnViewCartLink();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new CartPage();
+	}
+	
+	
 
 }

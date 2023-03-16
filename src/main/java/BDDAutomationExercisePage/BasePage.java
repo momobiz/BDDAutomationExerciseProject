@@ -126,5 +126,10 @@ public abstract class BasePage {
 	public static void clickOnOkAlertButton() {
 		driver.switchTo().alert().accept();
 	}
+	
+	public void insertValueInDynamicDropdown(WebElement dynamicDropdown, String value) {
+		dynamicDropdown.clear();
+		dynamicDropdown.sendKeys(value);
+	}
 
 }
