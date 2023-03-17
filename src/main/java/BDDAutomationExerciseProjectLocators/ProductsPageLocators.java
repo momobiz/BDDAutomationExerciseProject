@@ -26,6 +26,10 @@ public class ProductsPageLocators {
 	@FindBy(id="submit_search")
 	public WebElement submitSearchButton;
 	
+	@CacheLookup
+	@FindBy(xpath="//div[@class='features_items']/h2")
+	public WebElement productsPageTitle;
+	
 	
 	
 	

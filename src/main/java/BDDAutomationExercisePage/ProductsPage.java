@@ -113,5 +113,9 @@ public class ProductsPage extends BasePage {
 		return listOfProductCard;
 
 	}
+	
+	public String getPageProductsTitle() {
+		return productsPageLocators.productsPageTitle.getText();
+	}
 
 }

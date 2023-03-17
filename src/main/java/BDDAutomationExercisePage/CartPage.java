@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.poi.util.SystemOutLogger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -15,8 +16,11 @@ public class CartPage extends BasePage{
 	public Header header;
 	public Footer footer;
 	public CartPageLocators cartPageLocators;
-	 List<ItemInCartPage> listItemInCartPage;
+	public List<ItemInCartPage> listItemInCartPage;
     public CartAddressDetailsPage cartAddressDetails=null;
+    
+    String deletedProduct=null;
+  
 	 
 	
 	
@@ -148,6 +152,33 @@ public class CartPage extends BasePage{
 		clickOn(cartPageLocators.placeOrderButton);
 		return new PaymentDetailsPage();
 	}
+	/*************************/
+
+	private void setListOfItemInCartAfterDelete(){
+		ItemInCartPage item;
+		listItemInCartPage=new ArrayList<ItemInCartPage>();
+		List<WebElement> itemLocators=driver.findElements(By.xpath("//tr[contains(@id,'product-')]"));
+		for(WebElement locator:itemLocators) {
+			item=new ItemInCartPage(locator);
+            listItemInCartPage.add(item);
+			
+		}
+		
+		
+	}
+	
+	public void removeItemFromCart(String numberOfItemInCart) {
+		ItemInCartPage itemToDelete=listItemInCartPage.get(Integer.valueOf(numberOfItemInCart)-1);
+		deletedProduct=itemToDelete.getNameOfItem();
+		itemToDelete.clickOnXButton();
+		wait.until(ExpectedConditions.invisibilityOf(itemToDelete.itemWebElement));
+		setListOfItemInCartAfterDelete();
+	}
+	public boolean isDeletedProductInCart() {
+		return isProductInCart(deletedProduct);
+	}
+	
+	
 	
 	
 	

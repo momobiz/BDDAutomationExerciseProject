@@ -17,6 +17,9 @@ public class HomePage extends BasePage {
 	public HomePageLocators homePageLocators;
 	public Footer footer;
 	List<ProductCard> productCardList;
+	public SideBar sideBar;
+	
+	public ProductsPage productsCategory;
 	
 
 	public HomePage() {
@@ -28,6 +31,7 @@ public class HomePage extends BasePage {
 		footer = new Footer();
 
 		productCardList = setListProductsCard(homePageLocators.listOfProductCardLocator);
+		sideBar=new SideBar();
 		
 
 	}
@@ -91,6 +95,23 @@ public class HomePage extends BasePage {
 		return alertCard.clickOnViewCartLink();
 		
 	}
+	/******** side bar    *******/
+	public boolean isSideBarDisplayed() {
+		scrollToWebElement(sideBar.sideBarLocators.category);
+		return sideBar.categoryIsDisplayed();
+	}
+	
+	public void chooseCategory(String category ) {
+		sideBar.selectCategory(category.toLowerCase());
+	}
+	public void chooseSubCategory(String category,String subCategory) {
+		productsCategory=sideBar.selectSubCategory(category.toLowerCase(), subCategory.toLowerCase());
+	}
+	public String getCategoryOfChoosenProducts() {
+		return productsCategory.getPageProductsTitle();
+	}
+	
+	
 	
 
 	

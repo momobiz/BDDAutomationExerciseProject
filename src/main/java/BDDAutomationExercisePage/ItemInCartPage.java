@@ -32,6 +32,9 @@ public class ItemInCartPage extends BasePage{
 		return itemWebElement.findElement(By.xpath("./td[5]/p")).getText();
 		
 	}
+	public void clickOnXButton() {
+		clickOn(itemWebElement.findElement(By.xpath("./td[6]/a")));
+	}
 	
 
 }
